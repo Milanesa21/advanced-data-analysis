@@ -3,15 +3,15 @@ import pandas as pd
 import sys
 import matplotlib.pyplot as plt
 
-# Funcion para conctar a la base de datos
+
+# Esta función se encarga de conectarse a la base de datos MySQL
 def connect_db():
     try:
         db = mysql.connector.connect(
             host="localhost",
             user="root",
             password="",
-            database="companydata",
-            port="3208"  
+            database="companydata",  
         )
     except mysql.connector.Error as e:
         print("No se pudo conectar:", e)
@@ -19,6 +19,24 @@ def connect_db():
     print("Conexión correcta")
     return db
 
+#  Esta función crea la tabla EmployeePerformance en la base de datos
+def create_db(db):
+    cursor = db.cursor()
+    sql_delete = "DROP TABLE IF EXISTS EmployeePerformance"
+    cursor.execute(sql_delete)
+    db.commit()
+    sql_create = """CREATE TABLE IF NOT EXISTS EmployeePerformance(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT,
+    department VARCHAR(255),
+    performance_score DECIMAL(5,2),
+    years_with_company INT,
+    salary DECIMAL(10,2))"""
+    cursor.execute(sql_create)
+    db.commit()
+    print("Tabla creada correctamente")
+    
+create_db(connect_db())
 # Funcion para importar datos de un CSV a la base de datos
 def import_csv_to_db(csv_file, db):
     cursor = db.cursor()
