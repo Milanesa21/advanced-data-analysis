@@ -4,6 +4,6 @@
 
 * Un archivo que sirva para cargar los datos, en mi caso, use la pagina Mockaroo para crear mil datos
 * Se recomineda un entorno virtual como venv
-* las librerias: pandas, matplotlob, mysqlclient
+* las librerias: pandas, matplotlib, mysqlclient
 
 y ya con eso, solo hace falta ejecutar el archivo y se encarga de todo solo
